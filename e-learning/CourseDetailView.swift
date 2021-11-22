@@ -11,19 +11,18 @@ struct CourseDetailView: View {
     var course: Course
     
     var body: some View {
-        VStack {
-            
-            Spacer()
-                .frame(width: UIScreen.main.bounds.width, height: 1, alignment: .center)
-                .background(Color.gray)
+//        VStack {
+//
+          
             GeometryReader { proxy in
-                
+               Divider()
                 VStack {
                
                     Image(course.image)
                         .resizable()
                         .frame(width: proxy.size.width * 0.9, height: proxy.size.height * 0.3, alignment: .center)
                         .cornerRadius(16)
+                        .padding()
                     VStack(alignment: .leading) {
                         Text(course.name)
                             .font(.title)
@@ -57,16 +56,22 @@ struct CourseDetailView: View {
                     .padding()
                     .frame(width: proxy.size.width * 0.9, height: 50, alignment: .center)
                     .background(Color.green)
-                    
+                    .cornerRadius(16)
+                    .padding()
 
                 }
                 .padding()
                 
             }
-        }
-        .navigationBarBackButtonHidden(true)
+//        }
+//        .navigationBarBackButtonHidden(true)
         
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Text("Courses")
+                    .font(.title3)
+                    .foregroundColor(.blue)
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Image(systemName: "heart.fill")
                    

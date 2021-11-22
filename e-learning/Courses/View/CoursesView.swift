@@ -28,6 +28,7 @@ struct CoursesView: View {
                         }
                         .buttonStyle(.plain)
                     }
+                    .listStyle(.plain)
                     .onAppear {
                         viewModel.getCourses()
                     }
@@ -35,6 +36,7 @@ struct CoursesView: View {
                 }
                 
             }
+            .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarHidden(true)
         }
         .navigationViewStyle(.stack)
@@ -47,7 +49,7 @@ struct CoursesView: View {
                 .scaledToFit()
                 .frame(width: size.width * 0.15, height: size.width * 0.15)
                 .cornerRadius(12)
-                .padding()
+//                .padding(.horizontal)
                 
             VStack(alignment: .leading, spacing: 10) {
                 Text(course.name)
@@ -56,7 +58,7 @@ struct CoursesView: View {
                 Text(course.description)
                     .font(.footnote)
             }
-            .frame(height: size.height * 0.1)
+            .frame(height: size.height * 0.12)
             
             VStack(spacing: 5) {
                 Text("Rs." + course.price + "/-")
