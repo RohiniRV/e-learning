@@ -96,6 +96,7 @@ struct ProfileView: View {
                 }
             }
             .frame(width: 150, height: 150, alignment: .center)
+            .cornerRadius(12)
             Spacer()
         }
       

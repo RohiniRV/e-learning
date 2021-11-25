@@ -17,7 +17,7 @@ class LoginViewModel: ObservableObject {
         let hasCapitalLetter = pwd.rangeOfCharacter(from: .uppercaseLetters) != nil
         let hasLowerCaseLetter = pwd.rangeOfCharacter(from: .lowercaseLetters) != nil
         let hasSpecialCharacter = pwd.contains("$") || pwd.contains("@") || pwd.contains("*")
-        return hasCapitalLetter && hasLowerCaseLetter && hasSpecialCharacter
+        return hasCapitalLetter && hasLowerCaseLetter && hasSpecialCharacter && pwd.count >= 8
     }
     
     func login() {

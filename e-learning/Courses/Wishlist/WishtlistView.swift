@@ -33,7 +33,6 @@ struct WishtlistView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarHidden(true)
-           
         }
         .navigationViewStyle(.stack)
     }

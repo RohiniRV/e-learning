@@ -88,7 +88,7 @@ struct LoginView: View {
     var usernameView: some View {
         VStack {
             HStack {
-                TextField("Username", text: $username, prompt: Text("username"))
+                TextField("Username", text: $username, prompt: Text("Username"))
                     .onSubmit {
                         if !viewModel.isValid(usn: username) {
                             showUSNRules = true
@@ -114,7 +114,7 @@ struct LoginView: View {
     var passwordView: some View {
         VStack {
             HStack {
-                TextField("Username", text: $password, prompt: Text("password"))
+                SecureField("Password", text: $password, prompt: Text("Password"))
                     .modifier(CustomTextField())
                     .focused($didSubmitUSN)
                     .onChange(of: password) { newValue in
@@ -190,7 +190,7 @@ struct LoginView: View {
     }
     
     var passwordInfoView: some View {
-        Text("* Password must contain A-Z, a-z & a special character('@', '$', '*')")
+        Text("* Password must contain A-Z, a-z & a special character('@', '$', '*') & should be atleast 8 characters.")
             .font(.footnote)
             .foregroundColor(.red)
     }
