@@ -74,7 +74,9 @@ struct CourseDetailView: View {
             if !user.wishlistCourses_Ids.contains(course.id) {
                 do {
                     let courseIds = viewModel.wishlistCourses.map({$0.id})
-                    
+                    for (i, _) in courseIds.enumerated() {
+                        viewModel.wishlistCourses[i].isFav = true
+                    }
                     user.wishlist = try NSKeyedArchiver.archivedData(withRootObject: courseIds, requiringSecureCoding: true)
                 } catch {
                     print("failed to archive array with error: \(error)")
@@ -132,6 +134,9 @@ struct CourseDetailView: View {
             if !user.cartCourses_Ids.contains(course.id) {
                 do {
                     let courseIds = viewModel.cartCourses.map({$0.id})
+                    for (i, _) in courseIds.enumerated() {
+                        viewModel.cartCourses[i].isAddedToCart = true
+                    }
                     user.cartItems = try NSKeyedArchiver.archivedData(withRootObject: courseIds, requiringSecureCoding: true)
                 } catch {
                     print("failed to archive array with error: \(error)")

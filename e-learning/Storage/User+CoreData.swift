@@ -72,10 +72,13 @@ extension User {
         mockCourses.forEach { course in
             if ids.contains(course.id) {
                 print("Course with id: \(course.id) appended to the cart")
-                courses.append(course)
+                var favCourse = course
+                favCourse.isFav = true
+                courses.append(favCourse)
             }
         }
         courses.sort(by: { $0.id < $1.id })
+        print("Wishlist Course from Coredata \(courses)")
         return courses
         
     }
@@ -91,7 +94,9 @@ extension User {
         mockCourses.forEach { course in
             if ids.contains(course.id) {
                 print("Course with id: \(course.id) appended to wishlist")
-                courses.append(course)
+                var cartCourse = course
+                cartCourse.isAddedToCart = true
+                courses.append(cartCourse)
             }
         }
         courses.sort(by: { $0.id < $1.id })

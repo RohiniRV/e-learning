@@ -24,7 +24,8 @@ struct LoginView: View {
     
     @State private var showUSNRules = false
     @State private var showPWDRules = false
-    
+    @State private var showLoggingAnimation = false
+
     @FocusState private var didSubmitUSN: Bool
 
     @State private var goToDashboard = false
@@ -54,12 +55,15 @@ struct LoginView: View {
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear {
-                
                 reset()
+            }
+            .onReceive(appNavState.$moveToDashboard) { value in
+                if value {
+                    appNavState.moveToDashboard = false
+                }
             }
         }
         .navigationViewStyle(.stack)
-
     }
     
     var logoView: some View {
@@ -149,15 +153,27 @@ struct LoginView: View {
             }
             
         } label: {
-            Text("Login")
+            if showLoggingAnimation {
+                ProgressView()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                            if showLoggingAnimation {
+                                goToDashboard = true
+                            }
+                        })
+                    }
+                    .padding(.leading)
+            }
+            Text(showLoggingAnimation ? "Logging you in..." : "Login")
                 .fontWeight(.semibold)
                 .colorInvert()
                 .padding()
-                .frame(width: width*0.6, alignment: .center)
         }
         .buttonStyle(.plain)
         .background(Color.indigo)
         .cornerRadius(16)
+        .frame(width: width*0.6, alignment: .center)
+
     }
     
     var createAcctBtnView: some View {
@@ -214,7 +230,7 @@ struct LoginView: View {
             users.forEach { user in
                 if user.username == username {
                     self.user = user
-                    goToDashboard = true
+                    showLoggingAnimation = true
                     print("Verified the user as existing user...")
                     return
                 }
@@ -237,7 +253,8 @@ struct LoginView: View {
             print("\(err.localizedDescription)")
         }
         self.user = newUser
-        goToDashboard = true
+//        goToDashboard = true
+        showLoggingAnimation = true
     }
     
     func reset() {
@@ -245,6 +262,8 @@ struct LoginView: View {
         password.removeAll()
         showPWDRules = false
         showUSNRules = false
+        showLoggingAnimation = false
+        goToDashboard = false
         appNavState.moveToDashboard = false
     }
     

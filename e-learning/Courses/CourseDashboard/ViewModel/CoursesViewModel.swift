@@ -47,20 +47,22 @@ class CoursesViewModel: ObservableObject {
     
     func addToCart(course: Course, user: User) {
         guard !isInCart(course: course) else {return}
-        courses.indices.forEach{
-            if (courses[$0].id == course.id) {
-                courses[$0].isAddedToCart = true
-            }
-        }
+        
         if cartCourses.isEmpty {
             print("Initializing the cart...")
             cartCourses = user.cartCourses
-            cartCourses.append(course)
         }
         else {
-            cartCourses.append(course)
+//            cartCourses.append(course)
             print("Course succesfully added to the cart with course id: \(course.id)")
         }
+        courses.indices.forEach{
+            if (courses[$0].id == course.id) {
+                courses[$0].isAddedToCart = true
+                cartCourses.append(courses[$0])
+            }
+        }
+        print("Cart Courses \(cartCourses)")
     }
     
     func getCartCourses(for user: User) {
@@ -91,20 +93,24 @@ class CoursesViewModel: ObservableObject {
     
     func addToWishList(course: Course, user: User) {
         guard !isInWishlist(course: course) else {return}
-        courses.indices.forEach{
-            if (courses[$0].id == course.id) {
-                courses[$0].isFav = true
-            }
-        }
+       
         if wishlistCourses.isEmpty {
             print("Initializing the wishlist...")
             wishlistCourses = user.wishlistCourses
-            wishlistCourses.append(course)
         }
         else {
-            wishlistCourses.append(course)
             print("Course succesfully added to the wishlist: \(course.id)")
         }
+        
+        courses.indices.forEach{
+            if (courses[$0].id == course.id) {
+                courses[$0].isFav = true
+                wishlistCourses.append(courses[$0])
+            }
+        }
+        
+        print("Wishlist Courses \(wishlistCourses)")
+
     }
         
     func getCoursesInWishlist(for user: User) {
