@@ -12,7 +12,7 @@ struct CustomTextField: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
-            .background(Color.gray.opacity(0.3))
+            .background(Color.indigo.opacity(0.3))
             .cornerRadius(16)
     }
 }

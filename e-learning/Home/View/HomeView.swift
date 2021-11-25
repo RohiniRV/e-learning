@@ -23,7 +23,6 @@ struct HomeView: View {
                     Text("Courses")
                     Image(systemName: "house.fill")
                 }
-                
             WishtlistView(user: user)
                 .environmentObject(viewModel)
                 .tabItem {
@@ -37,6 +36,7 @@ struct HomeView: View {
                     Image(systemName: "person.fill")
                 }
         }
+        .accentColor(.indigo)
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .onReceive(appState.$moveToDashboard) { shouldLogout in
@@ -47,16 +47,9 @@ struct HomeView: View {
         .onAppear {
             print("Home View appears...")
             viewModel.getCoursesInWishlist(for: user)
-
         }
     }
 }
-
-//struct HomeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HomeView(viewModel: CoursesViewModel())
-//    }
-//}
 
 enum pageType: String {
     case courses = "Courses"

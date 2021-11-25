@@ -11,7 +11,6 @@ import CoreData
 struct PersistenceController {
     static let shared = PersistenceController()
     
-    // Storage for Core Data
     let container: NSPersistentContainer
     
     init() {
@@ -34,9 +33,4 @@ struct PersistenceController {
             }
         }
     }
-    
-    func saveUserCredentials() {
-        
-    }
-    
 }

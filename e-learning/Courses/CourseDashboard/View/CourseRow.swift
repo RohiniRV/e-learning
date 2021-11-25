@@ -14,7 +14,6 @@ struct courseRow: View {
     let height = UIScreen.main.bounds.height
 
     init(course: Course) {
-//        print("Course Id: \(course.id)")
         self.course = course
     }
 
@@ -29,21 +28,24 @@ struct courseRow: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(course.name)
                     .font(.headline)
+                    .foregroundColor(.appGreen)
                 Text(course.description)
-//                    .font(.footnote)
             }
             .frame(height: height * 0.12)
-            .padding(.vertical)
+//            .padding(.vertical)
             VStack(spacing: 5) {
                 Text("Rs." + "\(course.price.rounded(toPlaces: 2))" + "/-")
                     .fontWeight(.semibold)
                     .font(.footnote)
+                    .foregroundColor(.appGreen)
                 Text("Rs." + "\(course.originalPrice.rounded(toPlaces: 2))" + "/-")
                     .strikethrough()
                     .font(.caption2)
+                    .foregroundColor(.red)
             }
 
         }
+        .padding()
     }
 }
 

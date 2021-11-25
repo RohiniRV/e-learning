@@ -32,10 +32,10 @@
 		B793B2D5274BB3C200319978 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2D4274BB3C200319978 /* HomeView.swift */; };
 		B793B2D7274BB4C100319978 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2D6274BB4C100319978 /* LoginViewModelTests.swift */; };
 		B793B2DB274BB68500319978 /* CoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2DA274BB68500319978 /* CoursesView.swift */; };
-		B793B2DD274BBA4100319978 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2DC274BBA4100319978 /* NavBar.swift */; };
 		B793B2E1274BBADC00319978 /* CoursesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2E0274BBADC00319978 /* CoursesViewModel.swift */; };
 		B793B2E4274BBB1D00319978 /* CoursesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2E3274BBB1D00319978 /* CoursesModel.swift */; };
 		B793B2E6274BC2FD00319978 /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2E5274BC2FD00319978 /* CourseDetailView.swift */; };
+		B79809B9274F75FA00C58600 /* AppNavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79809B8274F75FA00C58600 /* AppNavigationState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,10 +84,10 @@
 		B793B2D4274BB3C200319978 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B793B2D6274BB4C100319978 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		B793B2DA274BB68500319978 /* CoursesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesView.swift; sourceTree = "<group>"; };
-		B793B2DC274BBA4100319978 /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		B793B2E0274BBADC00319978 /* CoursesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesViewModel.swift; sourceTree = "<group>"; };
 		B793B2E3274BBB1D00319978 /* CoursesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesModel.swift; sourceTree = "<group>"; };
 		B793B2E5274BC2FD00319978 /* CourseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailView.swift; sourceTree = "<group>"; };
+		B79809B8274F75FA00C58600 /* AppNavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,11 +274,11 @@
 			isa = PBXGroup;
 			children = (
 				B793B2CC274B9A7D00319978 /* ViewModifiers.swift */,
-				B793B2DC274BBA4100319978 /* NavBar.swift */,
 				B73AFCE8274D03E900D501C4 /* Extensions.swift */,
 				B76E353C274E26A100AA242C /* ImagePicker+UIViewControllerRepresentable.swift */,
 				B76E3544274E579000AA242C /* ViewModelFactory.swift */,
 				B76E3546274E58E800AA242C /* APIDatamodel.swift */,
+				B79809B8274F75FA00C58600 /* AppNavigationState.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -286,25 +286,9 @@
 		B793B2D0274BB37D00319978 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				B793B2D1274BB38C00319978 /* Model */,
-				B793B2D2274BB39200319978 /* ViewModel */,
 				B793B2D3274BB39C00319978 /* View */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		B793B2D1274BB38C00319978 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B793B2D2274BB39200319978 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B793B2D3274BB39C00319978 /* View */ = {
@@ -318,10 +302,10 @@
 		B793B2D8274BB66C00319978 /* Courses */ = {
 			isa = PBXGroup;
 			children = (
-				B79809B7274F734800C58600 /* CourseDetail */,
 				B79809B6274F732500C58600 /* CourseDashboard */,
-				B73AFCEA274D12A300D501C4 /* Wishlist */,
+				B79809B7274F734800C58600 /* CourseDetail */,
 				B73AFCE3274CD45100D501C4 /* Cart */,
+				B73AFCEA274D12A300D501C4 /* Wishlist */,
 			);
 			path = Courses;
 			sourceTree = "<group>";
@@ -509,9 +493,9 @@
 				B76E3545274E579000AA242C /* ViewModelFactory.swift in Sources */,
 				B76E353D274E26A100AA242C /* ImagePicker+UIViewControllerRepresentable.swift in Sources */,
 				B793B2C8274B957500319978 /* LoginView.swift in Sources */,
-				B793B2DD274BBA4100319978 /* NavBar.swift in Sources */,
 				B793B2E6274BC2FD00319978 /* CourseDetailView.swift in Sources */,
 				B73AFCE5274CD45F00D501C4 /* CartView.swift in Sources */,
+				B79809B9274F75FA00C58600 /* AppNavigationState.swift in Sources */,
 				B73AFCF0274D1EBB00D501C4 /* ProfileView.swift in Sources */,
 				B76E3547274E58E800AA242C /* APIDatamodel.swift in Sources */,
 				B73AFCEC274D12B400D501C4 /* WishtlistView.swift in Sources */,

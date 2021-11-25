@@ -11,38 +11,18 @@ import CoreData
 struct CoursesView: View {
     
     @EnvironmentObject var viewModel: CoursesViewModel
-    var user: User
     @State var goToCart = false
     @State var searchText = ""
+
+    var user: User
 
     var body: some View {
         NavigationView {
             VStack {
                 navBarView
-                Spacer()
-                    .frame(width: UIScreen.main.bounds.width, height: 1, alignment: .center)
-                    .background(Color.gray)
-                TextField("", text: $searchText, prompt: Text("Search for courses"))
-                    .modifier(CustomTextField())
-                    .padding()
-                ScrollView{
-                    LazyVStack {
-                        ForEach(searchResults, id: \.id) { course in
-                            NavigationLink {
-                                CourseDetailView(user: user, pageType: .cart, course: course)
-                                    .environmentObject(viewModel)
-                                
-                            } label: {
-                                courseRow(course: course)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                        .listStyle(.plain)
-                    }
-                    
-                    
-                }
-                
+                customDivider
+                searchBar
+                coursesList
             }
             .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarHidden(true)
@@ -51,36 +31,18 @@ struct CoursesView: View {
             }
         }
         .navigationViewStyle(.stack)
-        
     }
     
-    var searchResults: [Course] {
-           if searchText.isEmpty {
-               return viewModel.courses
-           } else {
-               return viewModel.courses.filter({$0.name.contains(searchText)})
-           }
-       }
-    
+  
     var navBarView: some View {
         HStack {
             Text("Courses")
-                .font(.title2)
-                .fontWeight(.medium)
+                .font(.title)
+                .foregroundColor(.indigo)
+                .fontWeight(.semibold)
                 .padding()
             Spacer()
-            
-            Button {
-                goToCart = true
-                viewModel.getCartCourses(for: user)
-            } label: {
-                Image(systemName: "cart.fill")
-                    .resizable()
-                    .frame(width: 30, height: 30, alignment: .center)
-                    .padding()
-            }
-            .buttonStyle(.plain)
-            
+            cartBtn
             NavigationLink(isActive: $goToCart) {
                 CartView(user: user)
                     .environmentObject(viewModel)
@@ -90,7 +52,60 @@ struct CoursesView: View {
             }
         }
     }
+    
+    var cartBtn: some View {
+        Button {
+            goToCart = true
+            viewModel.getCartCourses(for: user)
+        } label: {
+            Image(systemName: "cart.fill")
+                .resizable()
+                .foregroundColor(.indigo)
+                .frame(width: 30, height: 30, alignment: .center)
+                .padding()
+        }
+        .buttonStyle(.plain)
+    }
+    
+    var customDivider: some View {
+        Spacer()
+            .frame(width: UIScreen.main.bounds.width, height: 1, alignment: .center)
+            .background(Color.gray)
+    }
 
+    var searchBar: some View {
+        TextField("", text: $searchText, prompt: Text("Search for courses"))
+            .modifier(CustomTextField())
+            .padding()
+    }
+    
+    var coursesList: some View {
+        ScrollView {
+            LazyVStack {
+                ForEach(searchResults, id: \.id) { course in
+                    NavigationLink {
+                        CourseDetailView(user: user, pageType: .cart, course: course)
+                            .environmentObject(viewModel)
+                        
+                    } label: {
+                        courseRow(course: course)
+                    }
+                    .buttonStyle(.plain)
+                }
+                .listStyle(.grouped)
+            }
+        }
+        .frame(height: UIScreen.main.bounds.height*0.7)
+    }
+    
+    var searchResults: [Course] {
+        if searchText.isEmpty {
+            return viewModel.courses
+        } else {
+            return viewModel.courses.filter({$0.name.contains(searchText)})
+        }
+    }
+    
 }
 
 struct CoursesView_Previews: PreviewProvider {

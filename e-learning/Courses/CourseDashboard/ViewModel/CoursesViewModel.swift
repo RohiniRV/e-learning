@@ -15,7 +15,6 @@ class CoursesViewModel: ObservableObject {
     @Published var totalCartPrice: Double = 0
     @Published var discountedDifference: Double = 0
     @Published var wishlistCourses = [Course]()
-//    @Published var
     
     private var cancellables = Set<AnyCancellable>()
     let networkManager: NetworkManager
@@ -32,36 +31,35 @@ class CoursesViewModel: ObservableObject {
                 case .failure(let error):
                     print("Error in getting employeeData \(error)")
                 case .finished:
-                    print("Finished")
+                    print("Finished getting data.")
                 }
-            }) { [weak self] data in
+            }) { data in
                 guard !data.data.isEmpty else {return}
-                print("Data recieved")
-                //here is where data is recieved.
-//                self?.employeeData = data.data
+                print("API Data recieved")
+
             }
             .store(in: &cancellables)
     }
     
     func getCourses() {
         courses = mockCourses
-        print("Courses count \(courses.count)")
     }
     
     func addToCart(course: Course, user: User) {
+        guard !isInCart(course: course) else {return}
         courses.indices.forEach{
             if (courses[$0].id == course.id) {
                 courses[$0].isAddedToCart = true
-                print("Course succesfully added to the cart  \(course.id)")
             }
         }
         if cartCourses.isEmpty {
+            print("Initializing the cart...")
             cartCourses = user.cartCourses
-            print("Initializing the cart... \(cartCourses)")
             cartCourses.append(course)
         }
         else {
             cartCourses.append(course)
+            print("Course succesfully added to the cart with course id: \(course.id)")
         }
     }
     
@@ -71,30 +69,13 @@ class CoursesViewModel: ObservableObject {
         }
     }
     
-//    func getCoursesInCart(user: User) {
-//        //First time when the user logs in, user.cart will be empty. So add it to the cartcourses.
-//        //Next time when the user logs in, check if user.cart has items {
-//        //cartcourses.append
-//        //else if cartcourses not empty, just append
-//    //}
-//        if cartCourses.isEmpty {
-//            cartCourses = user.cartCourses.isEmpty ? courses.filter({$0.isAddedToCart == true }) : user.cartCourses
-//        }
-//        else {
-//            cartCourses.append(contentsOf: courses.filter({$0.isAddedToCart == true }))
-//        }
-//        print("Courses in cart \(cartCourses)")
-//    }
-    
     func getTotalAmount() {
         var amt = 0.0
-
         cartCourses.forEach { course in
             amt += course.price
         }
-        
         totalCartPrice = amt
-        print("totalCartPrice in cart \(totalCartPrice)")
+        print("TotalCartPrice: \(totalCartPrice)")
 
     }
     
@@ -104,32 +85,40 @@ class CoursesViewModel: ObservableObject {
             amt += course.originalPrice
         }
         discountedDifference = (amt - totalCartPrice)
-        print("discountedDifference in cart \(discountedDifference)")
+        print("DiscountedDifference of cart items: \(discountedDifference)")
 
     }
     
     func addToWishList(course: Course, user: User) {
+        guard !isInWishlist(course: course) else {return}
         courses.indices.forEach{
             if (courses[$0].id == course.id) {
                 courses[$0].isFav = true
-                print("Course succesfully added to the wishlist  \(course.id)")
             }
         }
         if wishlistCourses.isEmpty {
+            print("Initializing the wishlist...")
             wishlistCourses = user.wishlistCourses
-            print("Initializing the cart... \(cartCourses)")
             wishlistCourses.append(course)
         }
         else {
             wishlistCourses.append(course)
+            print("Course succesfully added to the wishlist: \(course.id)")
         }
-        
     }
         
     func getCoursesInWishlist(for user: User) {
         if self.wishlistCourses.isEmpty {
             wishlistCourses = user.wishlistCourses
         }
+    }
+    
+    func isInCart(course: Course) -> Bool {
+        cartCourses.contains(course)
+    }
+    
+    func isInWishlist(course: Course) -> Bool {
+        wishlistCourses.contains(course)
     }
 }
 

@@ -39,11 +39,7 @@ struct ProfileView: View {
             .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarHidden(true)
             .onAppear(perform: {
-                nametext = user.profileName
-                bio = user.userBio
-                level = user.userLevel
-                skillsText = user.userSkills
-                bandName = user.userBandName
+                statePropertiesInitialization()
             })
             .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
                 ImagePicker(image: self.$inputImage)
@@ -58,6 +54,7 @@ struct ProfileView: View {
             Text("Profile")
                 .font(.title2)
                 .fontWeight(.medium)
+                .foregroundColor(.indigo)
                 .padding()
             Spacer()
             editIconView
@@ -70,17 +67,18 @@ struct ProfileView: View {
         } label: {
             if editingEnabled {
                 Text("Done")
-                    .padding()
+                    .colorInvert()
+                    .padding(10)
             }
             else {
                 Image(systemName: "pencil.circle")
                     .resizable()
                     .frame(width: 30, height: 30, alignment: .center)
-                    .padding()
+                    .padding(10)
             }
         }
         .buttonStyle(.plain)
-        .background(editingEnabled ? Color.blue : .clear)
+        .background(editingEnabled ? Color.indigo : .clear)
         .cornerRadius(12)
     }
     
@@ -91,22 +89,30 @@ struct ProfileView: View {
                 showingImagePicker.toggle()
             } label: {
                 if profileImage == nil {
-                    Image(systemName: "photo.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(.gray)
+                    defaultPhotoView
                 }
                 else {
-                    profileImage!
-                        .resizable()
-                        .scaledToFit()
-                        .cornerRadius(12)
+                    photoView
                 }
             }
             .frame(width: 150, height: 150, alignment: .center)
             Spacer()
         }
       
+    }
+    
+    var defaultPhotoView: some View {
+        Image(systemName: "photo.fill")
+            .resizable()
+            .scaledToFit()
+            .foregroundColor(.gray)
+    }
+    
+    var photoView: some View {
+        profileImage!
+            .resizable()
+            .scaledToFit()
+            .cornerRadius(12)
     }
     
     func loadImage() {
@@ -130,7 +136,6 @@ struct ProfileView: View {
             VStack(alignment: .leading) {
                 cellView(type: .bio, bindingValue: $bio, value: bio)
             }
-            
         }
     }
     
@@ -145,14 +150,13 @@ struct ProfileView: View {
             }
             else {
                 Text(value)
+                    .foregroundColor(.indigo)
             }
         }
         .padding(.leading)
             Spacer()
         }
         .frame(width: UIScreen.main.bounds.width * 0.5)
-
-//        .background(Color.yellow)
     }
     
     var logoutBtnStack: some View {
@@ -163,18 +167,18 @@ struct ProfileView: View {
                     appState.moveToDashboard = true
                 } label: {
                     Text("Logout")
+                        .fontWeight(.semibold)
+                        .colorInvert()
                 }
                 .buttonStyle(.plain)
                 .padding()
-                .background(Color.green)
+                .background(Color.appGreen)
                 .cornerRadius(12)
                 Spacer()
             }
-            
            Text("Version 1.0")
                 .fontWeight(.semibold)
         }
-      
     }
     
     func saveProfileData() {
@@ -191,6 +195,14 @@ struct ProfileView: View {
         catch(let err) {
             print("\(err.localizedDescription)")
         }
+    }
+    
+    func statePropertiesInitialization() {
+        nametext = user.profileName
+        bio = user.userBio
+        level = user.userLevel
+        skillsText = user.userSkills
+        bandName = user.userBandName
     }
 }
 

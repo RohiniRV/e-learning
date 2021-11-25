@@ -20,7 +20,7 @@ struct Course: Hashable, Identifiable, Codable {
 }
 
 
-//MARK: -Need to be refined
+#warning("Needs refinement")
 
 let mockCourses: [Course] = [
                              .init(id: 0, name: "100 days of SwiftUI", description: "This is a free collection of videos, tutorials, tests, and more, all drawn from around my work here on Hacking with Swift, and all designed to help you learn SwiftUI effectively.", image: "swiftui_logo", price: 450, originalPrice: 600, isFav: false, isAddedToCart: false),

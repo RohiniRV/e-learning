@@ -11,12 +11,10 @@ import CoreData
 struct LoginView: View {
     
     @Environment(\.managedObjectContext) var managedObjectContext
-
     @ObservedObject var viewModel = LoginViewModel()
     @ObservedObject var appNavState = AppState()
     
     @FetchRequest(entity: User.entity(), sortDescriptors: [], predicate: nil, animation: nil) var users: FetchedResults<User>
-
 
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
@@ -77,8 +75,7 @@ struct LoginView: View {
             usernameView
             passwordView
             loginBtn
-            createAcctBtnView
-
+//            createAcctBtnView
         }
         .frame(width: width*0.6, alignment: .center)
 
@@ -103,8 +100,6 @@ struct LoginView: View {
                         }
                     })
                     .modifier(CustomTextField())
-                
-//                infoBtnView(isUsnView: true)
             }
             if showUSNRules {
                 usernameInfoView
@@ -155,12 +150,13 @@ struct LoginView: View {
             
         } label: {
             Text("Login")
-                .foregroundColor(.white)
+                .fontWeight(.semibold)
+                .colorInvert()
                 .padding()
                 .frame(width: width*0.6, alignment: .center)
         }
         .buttonStyle(.plain)
-        .background(Color.black)
+        .background(Color.indigo)
         .cornerRadius(16)
     }
     
@@ -210,22 +206,16 @@ struct LoginView: View {
      }
     
     func login() {
-        /* note: - This would be used in real case
-            viewModel.login()
-         */
-        
+        print("Logging you in...")
         if users.isEmpty || !users.map({$0.username}).contains(username) {
-            print("User doesnt exist. Create one")
             createNewUser()
         }
         else {
-            
             users.forEach { user in
                 if user.username == username {
                     self.user = user
                     goToDashboard = true
-                    print("The Existing User \(user)")
-                    print("User already exists. Navigate to Home.")
+                    print("Verified the user as existing user...")
                     return
                 }
             }
@@ -235,18 +225,19 @@ struct LoginView: View {
     }
     
     func createNewUser() {
+        print("Creating a new user while trying to login...")
+        
         let newUser = User(context: managedObjectContext)
         newUser.username = username
         newUser.password = password
         do {
             try managedObjectContext.save()
-        } catch {
+        } catch(let err) {
             // handle the Core Data error
-            print("Error in saving to coredata")
+            print("\(err.localizedDescription)")
         }
         self.user = newUser
         goToDashboard = true
-        print("Created new user")
     }
     
     func reset() {
@@ -263,10 +254,4 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
     }
-}
-
-import Combine
-
-class AppState: ObservableObject {
-    @Published var moveToDashboard: Bool = false
 }

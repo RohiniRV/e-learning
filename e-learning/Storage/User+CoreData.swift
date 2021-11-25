@@ -35,50 +35,46 @@ extension User {
     }
     
     var wishlistCourses_Ids: [Int] {
-        var ids = [Int]()
-        if let wishlistIds = self.wishlist {
+        var courseIds = [Int]()
+        if let storedIds = self.wishlist {
             do {
-                if let idsArray = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: wishlistIds) as? [Int] {
-                    print("Wishlist Ids \(idsArray)")
-                    ids = idsArray
+                if let idsUnarchived = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: storedIds) as? [Int] {
+                    courseIds = idsUnarchived
                 }
             } catch {
                 print("could not unarchive array: \(error)")
             }
         }
-        return ids
+        return courseIds
     }
     
     var cartCourses_Ids: [Int] {
-        var ids = [Int]()
-        if let cartIds = self.cartItems {
+        var courseIds = [Int]()
+        if let storedIds = self.cartItems {
             do {
-                if let cartIdsArray = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: cartIds) as? [Int] {
-                    print("Cart Ids \(cartIdsArray)")
-                    ids = cartIdsArray
+                if let idsUnarchived = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: storedIds) as? [Int] {
+                    courseIds = idsUnarchived
                 }
             } catch {
                 print("could not unarchive array: \(error)")
             }
         }
-        return ids
+        return courseIds
     }
     
     var wishlistCourses: [Course] {
         guard !wishlistCourses_Ids.isEmpty else {
             print("Wishlist courses are empty")
             return []
-            
         }
         let ids = wishlistCourses_Ids.sorted(by: {$0 > $1})
         var courses = [Course]()
         mockCourses.forEach { course in
             if ids.contains(course.id) {
-                print("Course appended to user cart")
+                print("Course with id: \(course.id) appended to the cart")
                 courses.append(course)
             }
         }
-       
         courses.sort(by: { $0.id < $1.id })
         return courses
         
@@ -94,11 +90,10 @@ extension User {
         var courses = [Course]()
         mockCourses.forEach { course in
             if ids.contains(course.id) {
-                print("Course appended to user cart")
+                print("Course with id: \(course.id) appended to wishlist")
                 courses.append(course)
             }
         }
-       
         courses.sort(by: { $0.id < $1.id })
         return courses
     }
