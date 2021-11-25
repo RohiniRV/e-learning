@@ -11,15 +11,17 @@ import CoreData
 struct PersistenceController {
     static let shared = PersistenceController()
     
-    let container: NSPersistentContainer
+    var container: NSPersistentContainer
     
     init() {
         container = NSPersistentContainer(name: "e_learning")
         container.loadPersistentStores { description, error in
+
             if let error = error {
                 fatalError("Error: \(error.localizedDescription)")
             }
         }
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
     
     func save() {
