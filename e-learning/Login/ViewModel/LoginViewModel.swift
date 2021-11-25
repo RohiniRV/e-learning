@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class LoginViewModel: ObservableObject {
     
     func isValid(usn: String) -> Bool {

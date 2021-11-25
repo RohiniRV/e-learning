@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NavBar: View {
-    @Binding var viewType: ViewType
+    var viewType: ViewType
     
     var body: some View {
         HStack {
@@ -39,7 +39,8 @@ struct NavBar: View {
             Spacer()
             if viewType != .wishlist {
                 Button {
-                    //
+                    
+                    
                 } label: {
                     Image(systemName: viewType == .courses ? "cart.fill" : viewType == .courseDetail ? "heart.fill" : "pencil.circle.fill")
                         .resizable()
@@ -54,7 +55,7 @@ struct NavBar: View {
 
 struct NavBar_Previews: PreviewProvider {
     static var previews: some View {
-        NavBar(viewType: .constant(.courses))
+        NavBar(viewType: .courses)
     }
 }
 

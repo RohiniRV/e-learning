@@ -7,11 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B73AFCE5274CD45F00D501C4 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73AFCE4274CD45F00D501C4 /* CartView.swift */; };
+		B73AFCE7274CD54700D501C4 /* CourseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73AFCE6274CD54700D501C4 /* CourseRow.swift */; };
+		B73AFCE9274D03E900D501C4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73AFCE8274D03E900D501C4 /* Extensions.swift */; };
+		B73AFCEC274D12B400D501C4 /* WishtlistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73AFCEB274D12B400D501C4 /* WishtlistView.swift */; };
+		B73AFCF0274D1EBB00D501C4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73AFCEF274D1EBB00D501C4 /* ProfileView.swift */; };
+		B76E353D274E26A100AA242C /* ImagePicker+UIViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76E353C274E26A100AA242C /* ImagePicker+UIViewControllerRepresentable.swift */; };
+		B76E3540274E26D900AA242C /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76E353F274E26D900AA242C /* ProfileModel.swift */; };
+		B76E3543274E567200AA242C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76E3542274E567200AA242C /* NetworkManager.swift */; };
+		B76E3545274E579000AA242C /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76E3544274E579000AA242C /* ViewModelFactory.swift */; };
+		B76E3547274E58E800AA242C /* APIDatamodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76E3546274E58E800AA242C /* APIDatamodel.swift */; };
+		B76E354A274E6E7F00AA242C /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76E3549274E6E7F00AA242C /* CoreDataController.swift */; };
+		B76E354C274E76D700AA242C /* User+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76E354B274E76D700AA242C /* User+CoreData.swift */; };
 		B793B295274B937000319978 /* e_learningApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B294274B937000319978 /* e_learningApp.swift */; };
-		B793B297274B937000319978 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B296274B937000319978 /* ContentView.swift */; };
 		B793B299274B937300319978 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B793B298274B937300319978 /* Assets.xcassets */; };
 		B793B29C274B937300319978 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B793B29B274B937300319978 /* Preview Assets.xcassets */; };
-		B793B29E274B937300319978 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B29D274B937300319978 /* Persistence.swift */; };
 		B793B2A1274B937300319978 /* e_learning.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B793B29F274B937300319978 /* e_learning.xcdatamodeld */; };
 		B793B2AB274B937300319978 /* e_learningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2AA274B937300319978 /* e_learningTests.swift */; };
 		B793B2B5274B937300319978 /* e_learningUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793B2B4274B937300319978 /* e_learningUITests.swift */; };
@@ -46,12 +56,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B73AFCE4274CD45F00D501C4 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		B73AFCE6274CD54700D501C4 /* CourseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRow.swift; sourceTree = "<group>"; };
+		B73AFCE8274D03E900D501C4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B73AFCEB274D12B400D501C4 /* WishtlistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishtlistView.swift; sourceTree = "<group>"; };
+		B73AFCEF274D1EBB00D501C4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B76E353C274E26A100AA242C /* ImagePicker+UIViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImagePicker+UIViewControllerRepresentable.swift"; sourceTree = "<group>"; };
+		B76E353F274E26D900AA242C /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		B76E3542274E567200AA242C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		B76E3544274E579000AA242C /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
+		B76E3546274E58E800AA242C /* APIDatamodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDatamodel.swift; sourceTree = "<group>"; };
+		B76E3549274E6E7F00AA242C /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		B76E354B274E76D700AA242C /* User+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreData.swift"; sourceTree = "<group>"; };
 		B793B291274B937000319978 /* e-learning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "e-learning.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B793B294274B937000319978 /* e_learningApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = e_learningApp.swift; sourceTree = "<group>"; };
-		B793B296274B937000319978 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B793B298274B937300319978 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B793B29B274B937300319978 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		B793B29D274B937300319978 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		B793B2A0274B937300319978 /* e_learning.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = e_learning.xcdatamodel; sourceTree = "<group>"; };
 		B793B2A6274B937300319978 /* e-learningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "e-learningTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B793B2AA274B937300319978 /* e_learningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = e_learningTests.swift; sourceTree = "<group>"; };
@@ -95,6 +115,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B73AFCE3274CD45100D501C4 /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				B73AFCE4274CD45F00D501C4 /* CartView.swift */,
+			);
+			path = Cart;
+			sourceTree = "<group>";
+		};
+		B73AFCEA274D12A300D501C4 /* Wishlist */ = {
+			isa = PBXGroup;
+			children = (
+				B73AFCEB274D12B400D501C4 /* WishtlistView.swift */,
+			);
+			path = Wishlist;
+			sourceTree = "<group>";
+		};
+		B73AFCED274D1EA700D501C4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B76E353E274E26BF00AA242C /* Model */,
+				B73AFCEE274D1EAE00D501C4 /* View */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		B73AFCEE274D1EAE00D501C4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B73AFCEF274D1EBB00D501C4 /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B76E353E274E26BF00AA242C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B76E353F274E26D900AA242C /* ProfileModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B76E3541274E563B00AA242C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B76E3542274E567200AA242C /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		B76E3548274E6E5100AA242C /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				B793B29F274B937300319978 /* e_learning.xcdatamodeld */,
+				B76E3549274E6E7F00AA242C /* CoreDataController.swift */,
+				B76E354B274E76D700AA242C /* User+CoreData.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		B793B288274B937000319978 = {
 			isa = PBXGroup;
 			children = (
@@ -121,14 +200,13 @@
 				B793B2C3274B94F900319978 /* Login */,
 				B793B2D0274BB37D00319978 /* Home */,
 				B793B2D8274BB66C00319978 /* Courses */,
+				B73AFCED274D1EA700D501C4 /* Profile */,
+				B76E3548274E6E5100AA242C /* Storage */,
+				B76E3541274E563B00AA242C /* Network */,
 				B793B2C9274B9A1600319978 /* Utilities */,
 				B793B294274B937000319978 /* e_learningApp.swift */,
-				B793B296274B937000319978 /* ContentView.swift */,
 				B793B298274B937300319978 /* Assets.xcassets */,
-				B793B29D274B937300319978 /* Persistence.swift */,
-				B793B29F274B937300319978 /* e_learning.xcdatamodeld */,
 				B793B29A274B937300319978 /* Preview Content */,
-				B793B2E5274BC2FD00319978 /* CourseDetailView.swift */,
 			);
 			path = "e-learning";
 			sourceTree = "<group>";
@@ -197,6 +275,10 @@
 			children = (
 				B793B2CC274B9A7D00319978 /* ViewModifiers.swift */,
 				B793B2DC274BBA4100319978 /* NavBar.swift */,
+				B73AFCE8274D03E900D501C4 /* Extensions.swift */,
+				B76E353C274E26A100AA242C /* ImagePicker+UIViewControllerRepresentable.swift */,
+				B76E3544274E579000AA242C /* ViewModelFactory.swift */,
+				B76E3546274E58E800AA242C /* APIDatamodel.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -236,9 +318,10 @@
 		B793B2D8274BB66C00319978 /* Courses */ = {
 			isa = PBXGroup;
 			children = (
-				B793B2E2274BBB0A00319978 /* Model */,
-				B793B2DF274BBACC00319978 /* ViewModel */,
-				B793B2D9274BB67700319978 /* View */,
+				B79809B7274F734800C58600 /* CourseDetail */,
+				B79809B6274F732500C58600 /* CourseDashboard */,
+				B73AFCEA274D12A300D501C4 /* Wishlist */,
+				B73AFCE3274CD45100D501C4 /* Cart */,
 			);
 			path = Courses;
 			sourceTree = "<group>";
@@ -247,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				B793B2DA274BB68500319978 /* CoursesView.swift */,
+				B73AFCE6274CD54700D501C4 /* CourseRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,6 +349,24 @@
 				B793B2E3274BBB1D00319978 /* CoursesModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B79809B6274F732500C58600 /* CourseDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				B793B2E2274BBB0A00319978 /* Model */,
+				B793B2DF274BBACC00319978 /* ViewModel */,
+				B793B2D9274BB67700319978 /* View */,
+			);
+			path = CourseDashboard;
+			sourceTree = "<group>";
+		};
+		B79809B7274F734800C58600 /* CourseDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B793B2E5274BC2FD00319978 /* CourseDetailView.swift */,
+			);
+			path = CourseDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,15 +499,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B793B29E274B937300319978 /* Persistence.swift in Sources */,
-				B793B297274B937000319978 /* ContentView.swift in Sources */,
+				B76E354A274E6E7F00AA242C /* CoreDataController.swift in Sources */,
 				B793B295274B937000319978 /* e_learningApp.swift in Sources */,
+				B76E354C274E76D700AA242C /* User+CoreData.swift in Sources */,
+				B76E3543274E567200AA242C /* NetworkManager.swift in Sources */,
 				B793B2CD274B9A7D00319978 /* ViewModifiers.swift in Sources */,
+				B73AFCE7274CD54700D501C4 /* CourseRow.swift in Sources */,
 				B793B2E1274BBADC00319978 /* CoursesViewModel.swift in Sources */,
+				B76E3545274E579000AA242C /* ViewModelFactory.swift in Sources */,
+				B76E353D274E26A100AA242C /* ImagePicker+UIViewControllerRepresentable.swift in Sources */,
 				B793B2C8274B957500319978 /* LoginView.swift in Sources */,
 				B793B2DD274BBA4100319978 /* NavBar.swift in Sources */,
 				B793B2E6274BC2FD00319978 /* CourseDetailView.swift in Sources */,
+				B73AFCE5274CD45F00D501C4 /* CartView.swift in Sources */,
+				B73AFCF0274D1EBB00D501C4 /* ProfileView.swift in Sources */,
+				B76E3547274E58E800AA242C /* APIDatamodel.swift in Sources */,
+				B73AFCEC274D12B400D501C4 /* WishtlistView.swift in Sources */,
 				B793B2D5274BB3C200319978 /* HomeView.swift in Sources */,
+				B73AFCE9274D03E900D501C4 /* Extensions.swift in Sources */,
+				B76E3540274E26D900AA242C /* ProfileModel.swift in Sources */,
 				B793B2A1274B937300319978 /* e_learning.xcdatamodeld in Sources */,
 				B793B2CF274BA06700319978 /* LoginViewModel.swift in Sources */,
 				B793B2E4274BBB1D00319978 /* CoursesModel.swift in Sources */,

@@ -8,19 +8,30 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @ObservedObject var viewModel: CoursesViewModel
+    @EnvironmentObject var appState: AppState
+    @Environment (\.presentationMode) var presentationMode
+    
+    var user: User
+    
     var body: some View {
         TabView {
-            CoursesView()
+            CoursesView(user: user)
+                .environmentObject(viewModel)
                 .tabItem {
                     Text("Courses")
                     Image(systemName: "house.fill")
                 }
-            Text("Wishlist")
+                
+            WishtlistView(user: user)
+                .environmentObject(viewModel)
                 .tabItem {
                     Text("Wishlist")
                     Image(systemName: "heart.fill")
                 }
-            Text("Profile")
+            ProfileView(user: user)
+                .environmentObject(appState)
                 .tabItem {
                     Text("Profile")
                     Image(systemName: "person.fill")
@@ -28,11 +39,27 @@ struct HomeView: View {
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onReceive(appState.$moveToDashboard) { shouldLogout in
+            if shouldLogout {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+        .onAppear {
+            print("Home View appears...")
+            viewModel.getCoursesInWishlist(for: user)
+
+        }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView(viewModel: CoursesViewModel())
+//    }
+//}
+
+enum pageType: String {
+    case courses = "Courses"
+    case wishlist = "Wishlist"
+    case cart = "Cart"
 }

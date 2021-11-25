@@ -10,12 +10,15 @@ import SwiftUI
 @main
 struct e_learningApp: App {
     let persistenceController = PersistenceController.shared
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some Scene {
         WindowGroup {
             LoginView()
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+        .onChange(of: scenePhase) { _ in
+            persistenceController.save()
         }
     }
 }

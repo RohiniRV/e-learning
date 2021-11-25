@@ -6,11 +6,18 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct LoginView: View {
     
+    @Environment(\.managedObjectContext) var managedObjectContext
+
     @ObservedObject var viewModel = LoginViewModel()
+    @ObservedObject var appNavState = AppState()
     
+    @FetchRequest(entity: User.entity(), sortDescriptors: [], predicate: nil, animation: nil) var users: FetchedResults<User>
+
+
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     
@@ -23,7 +30,10 @@ struct LoginView: View {
     @FocusState private var didSubmitUSN: Bool
 
     @State private var goToDashboard = false
-
+    let vmFactory = ViewModelFactory()
+    
+    @State private var user: User?
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -33,11 +43,21 @@ struct LoginView: View {
                 loginMainView
                 Spacer()
                 NavigationLink(isActive: $goToDashboard) {
-                    HomeView()
+                    if user != nil {
+                        HomeView(viewModel: vmFactory.getCoursesViewModel(), user: user!)
+                            .environmentObject(appNavState)
+                            .environment(\.managedObjectContext, managedObjectContext)
+                    }
+                  
                 } label: {
                     EmptyView()
-
                 }
+            }
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+            .onAppear {
+                
+                reset()
             }
         }
         .navigationViewStyle(.stack)
@@ -193,7 +213,48 @@ struct LoginView: View {
         /* note: - This would be used in real case
             viewModel.login()
          */
+        
+        if users.isEmpty || !users.map({$0.username}).contains(username) {
+            print("User doesnt exist. Create one")
+            createNewUser()
+        }
+        else {
+            
+            users.forEach { user in
+                if user.username == username {
+                    self.user = user
+                    goToDashboard = true
+                    print("The Existing User \(user)")
+                    print("User already exists. Navigate to Home.")
+                    return
+                }
+            }
+            
+        }
+        
+    }
+    
+    func createNewUser() {
+        let newUser = User(context: managedObjectContext)
+        newUser.username = username
+        newUser.password = password
+        do {
+            try managedObjectContext.save()
+        } catch {
+            // handle the Core Data error
+            print("Error in saving to coredata")
+        }
+        self.user = newUser
         goToDashboard = true
+        print("Created new user")
+    }
+    
+    func reset() {
+        username.removeAll()
+        password.removeAll()
+        showPWDRules = false
+        showUSNRules = false
+        appNavState.moveToDashboard = false
     }
     
 }
@@ -202,4 +263,10 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
     }
+}
+
+import Combine
+
+class AppState: ObservableObject {
+    @Published var moveToDashboard: Bool = false
 }
