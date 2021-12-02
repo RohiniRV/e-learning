@@ -56,7 +56,6 @@ struct CoursesView: View {
     var cartBtn: some View {
         Button {
             goToCart = true
-            viewModel.getCartCourses(for: user)
         } label: {
             Image(systemName: "cart.fill")
                 .resizable()
@@ -108,11 +107,11 @@ struct CoursesView: View {
     
 }
 
-struct CoursesView_Previews: PreviewProvider {
-    static var previews: some View {
-        CoursesView(user: User())
-            .environmentObject(CoursesViewModel(networkManager: NetworkManager()))
-    }
-}
+//struct CoursesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CoursesView(user: User())
+//            .environmentObject(CoursesViewModel(networkManager: NetworkManager(), user: User())
+//    }
+//}
 
 

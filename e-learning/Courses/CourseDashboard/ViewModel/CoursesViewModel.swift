@@ -18,10 +18,39 @@ class CoursesViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     let networkManager: NetworkManager
+    let user: User
     
-    init(networkManager: NetworkManager) {
+    let manager = CoursesManager()
+    
+    func updateCart(course: Course) {
+        cartCourses.append(course)
+        courses = manager.courses
+        print("CartList \(cartCourses)")
+    }
+    
+    func updateFavs(course: Course)  {
+        wishlistCourses.append(course)
+        courses = manager.courses
+        print("WishList \(wishlistCourses)")
+    }
+    
+    init(networkManager: NetworkManager, user: User) {
         self.networkManager = networkManager
-        self.getCourses()
+        self.user = user
+        
+        //New architecture
+        courses = manager.courses
+        preloadUserCart()
+        preloadUserWishlist()
+    }
+    
+    func preloadUserWishlist() {
+        wishlistCourses = user.wishlistCourses
+    }
+    
+    func preloadUserCart() {
+        cartCourses = user.cartCourses
+        print("Cart courses of user \(cartCourses)")
     }
     
     func getAPIData() {
@@ -41,34 +70,24 @@ class CoursesViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func getCourses() {
-        courses = mockCourses
+    func addToCart(course: Course) {
+        manager.addToCart(course: course)
+        updateCart(course: course)
     }
     
-    func addToCart(course: Course, user: User) {
-        guard !isInCart(course: course) else {return}
-        
-        if cartCourses.isEmpty {
-            print("Initializing the cart...")
-            cartCourses = user.cartCourses
-        }
-        else {
-//            cartCourses.append(course)
-            print("Course succesfully added to the cart with course id: \(course.id)")
-        }
-        courses.indices.forEach{
-            if (courses[$0].id == course.id) {
-                courses[$0].isAddedToCart = true
-                cartCourses.append(courses[$0])
-            }
-        }
-        print("Cart Courses \(cartCourses)")
+    func addToWishlist(course: Course) {
+        manager.addToWishList(course: course)
+        updateFavs(course: course)
     }
     
-    func getCartCourses(for user: User) {
-        if cartCourses.isEmpty {
-            cartCourses = user.cartCourses
-        }
+    func removeFromCart(course: Course) {
+        manager.removefromCart(course: course)
+        updateCart(course: course)
+    }
+    
+    func removeFromWishList(course: Course) {
+        manager.removeFromWishList(course: course)
+        updateFavs(course: course)
     }
     
     func getTotalAmount() {
@@ -88,43 +107,6 @@ class CoursesViewModel: ObservableObject {
         }
         discountedDifference = (amt - totalCartPrice)
         print("DiscountedDifference of cart items: \(discountedDifference)")
-
-    }
-    
-    func addToWishList(course: Course, user: User) {
-        guard !isInWishlist(course: course) else {return}
-       
-        if wishlistCourses.isEmpty {
-            print("Initializing the wishlist...")
-            wishlistCourses = user.wishlistCourses
-        }
-        else {
-            print("Course succesfully added to the wishlist: \(course.id)")
-        }
-        
-        courses.indices.forEach{
-            if (courses[$0].id == course.id) {
-                courses[$0].isFav = true
-                wishlistCourses.append(courses[$0])
-            }
-        }
-        
-        print("Wishlist Courses \(wishlistCourses)")
-
-    }
-        
-    func getCoursesInWishlist(for user: User) {
-        if self.wishlistCourses.isEmpty {
-            wishlistCourses = user.wishlistCourses
-        }
-    }
-    
-    func isInCart(course: Course) -> Bool {
-        cartCourses.contains(course)
-    }
-    
-    func isInWishlist(course: Course) -> Bool {
-        wishlistCourses.contains(course)
     }
 }
 

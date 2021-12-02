@@ -17,7 +17,7 @@ struct CartView: View {
     var body: some View {
         VStack {
             if viewModel.cartCourses.isEmpty {
-                emprtCartView
+                emptyCartView
             }
             else {
                 coursesList
@@ -43,7 +43,7 @@ struct CartView: View {
         }
     }
     
-    var emprtCartView: some View {
+    var emptyCartView: some View {
         VStack {
             Spacer()
             Text("You have no cart items yet!")
@@ -52,7 +52,7 @@ struct CartView: View {
     }
     
     var coursesList: some View {
-        List(!viewModel.cartCourses.isEmpty ? viewModel.cartCourses : user.cartCourses, id: \.id) { course in
+        List(viewModel.cartCourses, id: \.id) { course in
             NavigationLink {
                 CourseDetailView(user: user, pageType: .cart, course: course)
                     .environmentObject(viewModel)

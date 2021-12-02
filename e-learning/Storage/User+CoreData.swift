@@ -34,72 +34,41 @@ extension User {
         self.username ?? "New User@\(UUID()).com"
     }
     
-    var wishlistCourses_Ids: [Int] {
-        var courseIds = [Int]()
-        if let storedIds = self.wishlist {
-            do {
-                if let idsUnarchived = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: storedIds) as? [Int] {
-                    courseIds = idsUnarchived
-                }
-            } catch {
-                print("could not unarchive array: \(error)")
-            }
-        }
-        return courseIds
-    }
-    
-    var cartCourses_Ids: [Int] {
-        var courseIds = [Int]()
-        if let storedIds = self.cartItems {
-            do {
-                if let idsUnarchived = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: storedIds) as? [Int] {
-                    courseIds = idsUnarchived
-                }
-            } catch {
-                print("could not unarchive array: \(error)")
-            }
-        }
-        return courseIds
-    }
-    
     var wishlistCourses: [Course] {
-        guard !wishlistCourses_Ids.isEmpty else {
-            print("Wishlist courses are empty")
+        guard let list = self.courses as? Set<CourseObject> else {
+            print("Wishlist Courses []")
             return []
         }
-        let ids = wishlistCourses_Ids.sorted(by: {$0 > $1})
-        var courses = [Course]()
-        mockCourses.forEach { course in
-            if ids.contains(course.id) {
-                print("Course with id: \(course.id) appended to the cart")
-                var favCourse = course
-                favCourse.isFav = true
-                courses.append(favCourse)
+        var courseList = [Course]()
+        print("List \(list)")
+        list.forEach { course in
+            if course.isFav {
+                let newCourse = Course(id: course.courseId, name: course.courseName, description: course.courseDetails, image: course.courseImage, price: course.sellingPrice, originalPrice: course.costPrice, isFav: course.isFav, isAddedToCart: course.isInCart)
+                courseList.append(newCourse)
             }
         }
-        courses.sort(by: { $0.id < $1.id })
-        print("Wishlist Course from Coredata \(courses)")
-        return courses
-        
+        return courseList
     }
     
     var cartCourses: [Course] {
-        guard !cartCourses_Ids.isEmpty else {
-            print("Cart courses are empty")
+        guard let list = self.courses as? Set<CourseObject> else {
+            print("Cart Courses []")
             return []
             
         }
-        let ids = cartCourses_Ids.sorted(by: {$0 > $1})
-        var courses = [Course]()
-        mockCourses.forEach { course in
-            if ids.contains(course.id) {
-                print("Course with id: \(course.id) appended to wishlist")
-                var cartCourse = course
-                cartCourse.isAddedToCart = true
-                courses.append(cartCourse)
+        var courseList = [Course]()
+        list.forEach { course in
+            if course.isInCart {
+                let newCourse = Course(id: course.courseId, name: course.courseName, description: course.courseDetails, image: course.courseImage, price: course.sellingPrice, originalPrice: course.costPrice, isFav: course.isFav, isAddedToCart: course.isInCart)
+                courseList.append(newCourse)
             }
         }
-        courses.sort(by: { $0.id < $1.id })
-        return courses
+        return courseList
     }
 }
+
+//solving the array problem in coredata
+//solving the save, fetch, update & delete problem. Betterement of that architecture.
+//better use of combine in asynchronous calls
+//better modularization
+//error management system

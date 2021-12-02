@@ -13,6 +13,7 @@ struct CourseDetailView: View {
     var user: User
     var pageType: pageType
     var course: Course
+    
     @EnvironmentObject var viewModel: CoursesViewModel
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
@@ -21,6 +22,8 @@ struct CourseDetailView: View {
     @State private var showNewCartTitle = false
     @State private var scaleAmt = 1.0
 
+//    @State private var course = mockCourses[0]
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Divider()
@@ -33,7 +36,11 @@ struct CourseDetailView: View {
         .navigationBarBackButtonHidden(true)
         .navigationTitle(Text("Course Detail"))
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: {
+//            course = viewModel.courses.first(where: {$0.id == id })!
+        })
         .onDisappear(perform: {
+            updateCourseList()
             saveToCoredata()
         })
         .toolbar {
@@ -44,6 +51,37 @@ struct CourseDetailView: View {
                 wishlistBtn
             }
         }
+    }
+    
+    func updateCourseList() {
+        viewModel.courses.forEach { course in
+            if course.isFav || course.isAddedToCart {
+                let courseEntity = CourseObject(context: moc)
+                
+                courseEntity.isFav = course.isFav
+                courseEntity.id = course.id
+                courseEntity.user = user
+                courseEntity.name = course.name
+                courseEntity.details = course.description
+                courseEntity.isInCart = course.isAddedToCart
+                courseEntity.costPrice = course.originalPrice
+                courseEntity.sellingPrice = course.price
+                courseEntity.image = course.image
+                print("CourseEntity \(course.id)")
+            }
+            
+        }
+    }
+    
+    func getData(from array: [Int]) -> Data {
+        var data: Data = .init()
+        do {
+           data = try NSKeyedArchiver.archivedData(withRootObject: array, requiringSecureCoding: false)
+        }
+        catch {
+            print("GetData: \(error)")
+        }
+        return data
     }
     
     var backBtn: some View {
@@ -69,19 +107,14 @@ struct CourseDetailView: View {
     
     var wishlistBtn: some View {
         Button {
-            viewModel.addToWishList(course: course, user: user)
-            scaleAmt = 1.5
-            if !user.wishlistCourses_Ids.contains(course.id) {
-                do {
-                    let courseIds = viewModel.wishlistCourses.map({$0.id})
-                    for (i, _) in courseIds.enumerated() {
-                        viewModel.wishlistCourses[i].isFav = true
-                    }
-                    user.wishlist = try NSKeyedArchiver.archivedData(withRootObject: courseIds, requiringSecureCoding: true)
-                } catch {
-                    print("failed to archive array with error: \(error)")
-                }
-                saveToCoredata()
+            //it should addto fav Toggle  {
+            if course.isFav {
+                scaleAmt = 1.0
+                viewModel.removeFromWishList(course: course)
+            }
+            else {
+                viewModel.addToWishlist(course: course)
+                scaleAmt = 1.5
             }
         } label: {
             Image(systemName: "heart.fill")
@@ -90,7 +123,10 @@ struct CourseDetailView: View {
         .buttonStyle(.plain)
         .scaleEffect(scaleAmt)
         .animation(.linear(duration: 0.1).delay(0.1).repeatCount(5), value: scaleAmt)
-        .disabled(course.isFav)
+        .onAppear {
+            scaleAmt = course.isFav ? 1.5 : 1.0
+        }
+//        .disabled(course.isFav)
     }
     
     var courseImageView: some View {
@@ -129,19 +165,13 @@ struct CourseDetailView: View {
     
     var addToCartBtn: some View {
         Button {
-            viewModel.addToCart(course: course, user: user)
-            animateCartTitle = true
-            if !user.cartCourses_Ids.contains(course.id) {
-                do {
-                    let courseIds = viewModel.cartCourses.map({$0.id})
-                    for (i, _) in courseIds.enumerated() {
-                        viewModel.cartCourses[i].isAddedToCart = true
-                    }
-                    user.cartItems = try NSKeyedArchiver.archivedData(withRootObject: courseIds, requiringSecureCoding: true)
-                } catch {
-                    print("failed to archive array with error: \(error)")
-                }
-                saveToCoredata()
+            if course.isAddedToCart {
+                animateCartTitle = false
+                viewModel.removeFromCart(course: course)
+            }
+            else {
+                animateCartTitle = true
+                viewModel.addToCart(course: course)
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 showNewCartTitle = true
@@ -149,7 +179,7 @@ struct CourseDetailView: View {
             }
         } label: {
             HStack {
-                if course.isAddedToCart {
+                if course.isAddedToCart || showNewCartTitle {
                     Image(systemName: "cart.fill")
                 }
                 Text((showNewCartTitle || course.isAddedToCart) ? "In Cart" : "Add to cart")
@@ -158,17 +188,13 @@ struct CourseDetailView: View {
                     .colorInvert()
                     
             }
-//            .offset(x: animateCartTitle ? UIScreen.main.bounds.width * 0.9 : 0)
-//            .transition((animateCartTitle || showNewCartTitle) ? .asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)) : .identity)
             .animation((animateCartTitle || showNewCartTitle) ? .easeIn(duration: 0.2) : .none, value: animationAmount)
-          
         }
         .buttonStyle(.plain)
         .padding()
         .frame(width: UIScreen.main.bounds.width * 0.9, height: 50, alignment: .center)
         .background(Color.appGreen)
         .cornerRadius(16)
-        .disabled(course.isAddedToCart)
         .padding()
     }
     

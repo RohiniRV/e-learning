@@ -11,8 +11,8 @@ class ViewModelFactory {
     
     let networkManager = NetworkManager()
 
-    func getCoursesViewModel() -> CoursesViewModel {
-        return CoursesViewModel(networkManager: networkManager)
+    func getCoursesViewModel(for user: User) -> CoursesViewModel {
+        return CoursesViewModel(networkManager: networkManager, user: user)
     }
     
 }

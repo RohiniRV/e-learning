@@ -18,7 +18,7 @@ struct WishtlistView: View {
         NavigationView {
             VStack {
                 navBarView
-                if viewModel.wishlistCourses.isEmpty && user.wishlistCourses.isEmpty {
+                if viewModel.wishlistCourses.isEmpty {
                     VStack{
                         Divider()
                         Spacer()
@@ -38,7 +38,7 @@ struct WishtlistView: View {
     }
     
     var coursesListView: some View {
-        List(user.wishlistCourses.isEmpty ? viewModel.wishlistCourses : user.wishlistCourses, id: \.id) { course in
+        List(viewModel.wishlistCourses, id: \.id) { course in
             NavigationLink {
                 CourseDetailView(user: user, pageType: .wishlist, course: course)
                     .environmentObject(viewModel)

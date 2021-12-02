@@ -43,7 +43,7 @@ struct LoginView: View {
                 Spacer()
                 NavigationLink(isActive: $goToDashboard) {
                     if user != nil {
-                        HomeView(viewModel: vmFactory.getCoursesViewModel(), user: user!)
+                        HomeView(viewModel: vmFactory.getCoursesViewModel(for: user!), user: user!)
                             .environmentObject(appNavState)
                             .environment(\.managedObjectContext, managedObjectContext)
                     }

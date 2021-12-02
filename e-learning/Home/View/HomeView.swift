@@ -46,7 +46,6 @@ struct HomeView: View {
         }
         .onAppear {
             print("Home View appears...")
-            viewModel.getCoursesInWishlist(for: user)
         }
     }
 }
