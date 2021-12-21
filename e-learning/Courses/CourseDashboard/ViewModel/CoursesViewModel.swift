@@ -20,26 +20,12 @@ class CoursesViewModel: ObservableObject {
     let networkManager: NetworkManager
     let user: User
     
-    let manager = CoursesManager()
-    
-    func updateCart(course: Course) {
-        cartCourses.append(course)
-        courses = manager.courses
-        print("CartList \(cartCourses)")
-    }
-    
-    func updateFavs(course: Course)  {
-        wishlistCourses.append(course)
-        courses = manager.courses
-        print("WishList \(wishlistCourses)")
-    }
-    
     init(networkManager: NetworkManager, user: User) {
         self.networkManager = networkManager
         self.user = user
         
         //New architecture
-        courses = manager.courses
+        courses = mockCourses
         preloadUserCart()
         preloadUserWishlist()
     }
@@ -71,23 +57,43 @@ class CoursesViewModel: ObservableObject {
     }
     
     func addToCart(course: Course) {
-        manager.addToCart(course: course)
-        updateCart(course: course)
+        
+        courses.indices.forEach { index in
+           if courses[index].id == course.id {
+               courses[index].isAddedToCart = true
+           }
+        }
+        
+        cartCourses = courses.filter({$0.isAddedToCart == true})
+
     }
     
     func addToWishlist(course: Course) {
-        manager.addToWishList(course: course)
-        updateFavs(course: course)
+        courses.indices.forEach { index in
+            if courses[index].id == course.id {
+                courses[index].isFav = true
+            }
+        }
+        wishlistCourses = courses.filter({$0.isFav == true })
+
     }
     
     func removeFromCart(course: Course) {
-        manager.removefromCart(course: course)
-        updateCart(course: course)
+        courses.indices.forEach { index in
+            if courses[index].id == course.id {
+                courses[index].isAddedToCart = false
+            }
+        }
+        cartCourses = courses.filter({$0.isAddedToCart == true })
     }
     
     func removeFromWishList(course: Course) {
-        manager.removeFromWishList(course: course)
-        updateFavs(course: course)
+        courses.indices.forEach { index in
+            if courses[index].id == course.id {
+                courses[index].isFav = false
+            }
+        }
+        cartCourses = courses.filter({$0.isFav == true })
     }
     
     func getTotalAmount() {

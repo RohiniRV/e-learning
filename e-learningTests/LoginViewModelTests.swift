@@ -20,4 +20,5 @@ class LoginViewModelTest: XCTestCase {
     func testPWDValidityFunction() {
         let _ = vm.isValid(pwd: "R@r")
     }
+    
 }

@@ -19,59 +19,6 @@ struct Course: Hashable, Identifiable, Codable {
     var isAddedToCart: Bool
 }
 
-protocol CourseBuilder {
-    func createCourses()
-    func addToWishList(course: Course)
-    func addToCart(course: Course)
-    func removeFromWishList(course: Course)
-    func removefromCart(course: Course)
-}
-
-final class CoursesManager: CourseBuilder {
-    
-    var courses = [Course]()
-    
-    init() {
-        createCourses()
-    }
-    
-    func createCourses() {
-        courses = mockCourses
-    }
-    
-    func addToCart(course: Course) {
-        courses.indices.forEach({
-            if courses[$0].id == course.id {
-                courses[$0].isAddedToCart = true
-            }
-        })
-        print("Add to cart \(courses)")
-    }
-    
-    func addToWishList(course: Course) {
-        courses.indices.forEach({
-            if courses[$0].id == course.id {
-                courses[$0].isFav = true
-            }
-        })
-    }
-    
-    func removefromCart(course: Course) {
-        courses.indices.forEach({
-            if courses[$0].id == course.id {
-                courses[$0].isAddedToCart = false
-            }
-        })
-    }
-    
-    func removeFromWishList(course: Course) {
-        courses.indices.forEach({
-            if courses[$0].id == course.id {
-                courses[$0].isFav = false
-            }
-        })
-    }
-}
 
 
 let mockCourses: [Course] = [

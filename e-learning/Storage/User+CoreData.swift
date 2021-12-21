@@ -40,7 +40,6 @@ extension User {
             return []
         }
         var courseList = [Course]()
-        print("List \(list)")
         list.forEach { course in
             if course.isFav {
                 let newCourse = Course(id: course.courseId, name: course.courseName, description: course.courseDetails, image: course.courseImage, price: course.sellingPrice, originalPrice: course.costPrice, isFav: course.isFav, isAddedToCart: course.isInCart)
